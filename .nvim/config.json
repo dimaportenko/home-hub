@@ -1,8 +1,10 @@
 {
   "commands": {
+    "address": "ifconfig | grep \"inet \" | grep -v 127.0.0.1",
     "dev": "yarn dev",
     "build": "yarn build",
-    "start": "yarn start",
+    "start": "yarn next start -H 192.168.31.102",
+    "start:dev": "yarn next dev -H 192.168.31.102",
     "lint": "yarn lint"
    }
 }

@@ -1,4 +1,5 @@
 "use client";
+import { videosDirectory } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -21,9 +22,10 @@ export default function Home() {
           {videos.map((video, index) => (
             <div key={index}>
               <video width="320" height="240" controls>
-                <source src={`/videos/${video}`} type="video/mp4" />
+                <source src={`${videosDirectory}/${video}`} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              <span>{video}</span>
             </div>
           ))}
         </div>
