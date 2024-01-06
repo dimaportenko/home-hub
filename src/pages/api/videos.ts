@@ -3,14 +3,37 @@ import fs from "fs";
 import path from "path";
 import { videosDirectory as dir, publicDirectory } from "@/lib/constants";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const videosDirectory = path.join(process.cwd(), `${publicDirectory}${dir}`);
-  fs.readdir(videosDirectory, (err, files) => {
-    if (err) {
-      res.status(500).json({ error: "Failed to read video directory" });
-      return;
+// Function to recursively get all video files
+function getVideoFiles(
+  dirPath: string,
+  baseDir: string,
+  arrayOfFiles: string[] = [],
+) {
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach((file) => {
+    const filePath = path.join(dirPath, file);
+    if (fs.statSync(filePath).isDirectory()) {
+      arrayOfFiles = getVideoFiles(filePath, baseDir, arrayOfFiles);
+    } else {
+      // Add more video file extensions if needed
+      if (/\.(mp4|mov|wmv|avi|mkv)$/i.test(file)) {
+        // Store relative path
+        arrayOfFiles.push(path.relative(baseDir, filePath));
+      }
     }
-    res.status(200).json(files);
-    // return JSON.stringify(files)
   });
+
+  return arrayOfFiles;
 }
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const pubDir = `${publicDirectory}${dir}`;
+    const baseDir = path.join(process.cwd(), pubDir);
+    const videoFiles = getVideoFiles(baseDir, baseDir);
+    res.status(200).json(videoFiles);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to read video directory" });
+  }
+} // Function to recursively get all video files
