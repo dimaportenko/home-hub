@@ -29,7 +29,6 @@ function getVideoFiles(
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const {name} = req.query;
-  console.log(name);
   try {
     const pubDir = `${publicDirectory}/${dir}/${name}`;
     const baseDir = path.join(process.cwd(), pubDir);
