@@ -1,2 +1,2 @@
-export const videosDirectory = "/videos/test";
+export const videosDirectory = "videos";
 export const publicDirectory = "public";
