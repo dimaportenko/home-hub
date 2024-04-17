@@ -5,6 +5,7 @@
     "build": "yarn build",
     "start": "yarn next start -H 192.168.31.102",
     "start:dev": "yarn next dev -H 192.168.31.102",
-    "lint": "yarn lint"
-   }
+    "lint": "yarn lint",
+    "test": "yarn test"
+  }
 }

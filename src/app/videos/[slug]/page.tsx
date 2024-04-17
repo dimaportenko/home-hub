@@ -1,4 +1,5 @@
 "use client";
+import { capitalise } from "@/lib/strings";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -28,7 +29,7 @@ export default function Videos({ params }: Props) {
   return (
     <main className="flex min-h-screen flex-col p-10">
       <div>
-        <h1>Videos</h1>
+        <h1>{`Videos -> ${capitalise(params.slug)}`}</h1>
         {error && <p>{error}</p>}
         <div className="flex flex-1 flex-row flex-wrap gap-4 ">
           {videos.map((video, index) => (
