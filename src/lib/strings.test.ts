@@ -13,4 +13,10 @@ describe("capitalise", () => {
     const result = capitalise(str);
     expect(result).toBe("");
   });
+
+  test("capitalizing with undefined", () => {
+    const str = undefined;
+    const result = capitalise(str);
+    expect(result).toBe("");
+  });
 });
